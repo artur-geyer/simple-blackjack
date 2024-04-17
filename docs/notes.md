@@ -1,0 +1,3 @@
+- cant use modules except random
+- only one file
+- keep it short

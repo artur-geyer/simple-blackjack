@@ -1,0 +1,21 @@
+{
+    "window.zoomLevel":  0.001,
+    "workbench.tree.indent": 20,
+    "editor.minimap.renderCharacters": false,
+    "editor.minimap.size": "fill",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "editor.cursorStyle": "block-outline",
+    "editor.cursorBlinking": "smooth",
+    "editor.minimap.enabled": false,
+
+    "[python]": {
+        "python.linting.enabled": true,
+        "python.linting.lintOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+        }
+    },
+}
