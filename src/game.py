@@ -7,27 +7,27 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return f"{self.rank} of {self.suit}"
+        return f"{self.rank} {self.suit}"
 
 
 class Deck:
     def __init__(self):
         self.cards = []
-        suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+        suits = ["Kőr", "Káró", "Pikk", "Treff"]
         ranks = [
-            "Two",
-            "Three",
-            "Four",
-            "Five",
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine",
-            "Ten",
-            "Jack",
-            "Queen",
-            "King",
-            "Ace",
+            "Két",
+            "Három",
+            "Négy",
+            "Öt",
+            "Hat",
+            "Hét",
+            "Nyolc",
+            "Kilenc",
+            "Tíz",
+            "Jumbó",
+            "Dáma",
+            "Király",
+            "Ász",
         ]
         for suit in suits:
             for rank in ranks:
@@ -53,7 +53,7 @@ class Hand:
         for card in self.cards:
             if card.rank.isdigit():
                 self.value += int(card.rank)
-            elif card.rank in ["Jack", "Queen", "King"]:
+            elif card.rank in ["Jumbó", "Dáma", "Király"]:
                 self.value += 10
             else:
                 hasAce = True
@@ -64,7 +64,7 @@ class Hand:
     def display(self):
         for card in self.cards:
             print(card)
-        print(f"Total Value: {self.value}")
+        print(f"Összérték: {self.value}")
 
 
 class Game:
@@ -74,7 +74,7 @@ class Game:
         self.dealerHand = Hand()
 
     def startGame(self):
-        print("Welcome to Blackjack!")
+        print("Üdvözöllek a játékban!")
         self.playerHand.addCard(self.deck.dealCard())
         self.playerHand.addCard(self.deck.dealCard())
         self.dealerHand.addCard(self.deck.dealCard())
@@ -84,42 +84,44 @@ class Game:
 
     def playerTurn(self):
         while True:
-            print("\nYour Hand:")
+            print("\nA lapjaid:")
             self.playerHand.display()
-            choice = input("Do you want to hit or stand? (h/s): ").lower()
-            if choice == "h":
+            choice = input("Kérsz egy új lapot vagy tovább? (k/t): ").lower()
+            if choice == "k":
                 self.playerHand.addCard(self.deck.dealCard())
                 if self.playerHand.value > 21:
-                    print("Busted! You lose.")
+                    print("Túllépted a 21-et! Vesztettél.")
                     self.endGame()
-            elif choice == "s":
+            elif choice == "t":
                 self.dealerTurn()
                 break
             else:
-                print("Invalid choice. Please enter 'h' to hit or 's' to stand.")
+                print(
+                    "Érvénytelen válasz. Kérlek válassz 'k'-t a lapkéréssel vagy 't'-t hogy tovább lépj."
+                )
 
     def dealerTurn(self):
-        print("\nDealer's Hand:")
+        print("\nAz osztó lapjai:")
         self.dealerHand.display()
         while self.dealerHand.value < 17:
             self.dealerHand.addCard(self.deck.dealCard())
         if self.dealerHand.value > 21 or self.dealerHand.value < self.playerHand.value:
-            print("You win!")
+            print("Nyertél!")
         elif self.dealerHand.value > self.playerHand.value:
-            print("Dealer wins!")
+            print("Az osztó nyert!")
         else:
-            print("It's a tie!")
+            print("Döntetlen!")
         self.endGame()
 
     def endGame(self):
-        playAgain = input("\nDo you want to play again? (y/n): ").lower()
-        if playAgain == "y":
+        playAgain = input("\nSzeretnél egy új meccset játszani? (i/n): ").lower()
+        if playAgain == "i":
             self.deck = Deck()
             self.playerHand = Hand()
             self.dealerHand = Hand()
             self.startGame()
         else:
-            print("Thanks for playing!")
+            print("Köszönöm, hogy játszottál!")
 
 
 if __name__ == "__main__":
